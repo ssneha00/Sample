@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Indian Family Graph</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <canvas id="graphCanvas"></canvas>
+
+    <header class="topbar">
+      <div>
+        <h1>Indian Family Graph</h1>
+        <p>Paste people + relationship data into <code>data.js</code> or the editor, then drag nodes, pan, and zoom.</p>
+      </div>
+      <div class="toolbar">
+        <input id="searchInput" type="text" placeholder="Search family member..." />
+        <button id="searchBtn">Search</button>
+        <button id="fitBtn">Fit View</button>
+        <button id="resetBtn">Reset</button>
+      </div>
+    </header>
+
+    <section class="left-panel card">
+      <h2>Data Format</h2>
+      <p>The app now accepts a dedicated <code>data.js</code> structure with separate <code>people</code> and <code>relations</code> arrays.</p>
+
+      <div class="mini-grid">
+        <div><strong>People fields</strong><br /><code>id</code>, <code>name</code>, <code>family</code>, optional <code>role</code></div>
+        <div><strong>Relation fields</strong><br /><code>source</code>, <code>target</code>, <code>kind</code></div>
+      </div>
+
+      <h3>Supported relation kinds</h3>
+      <p><code>Spouse</code>, <code>Parent</code>, <code>Child</code>, <code>Sibling</code>, <code>Father</code>, <code>Mother</code>, <code>Son</code>, <code>Daughter</code></p>
+
+      <h3>Can I replace the sample data?</h3>
+      <p><strong>Yes.</strong> Replace the <code>people</code> and <code>relations</code> arrays in <code>data.js</code> with your own exported records.</p>
+
+      <h3>Do I need roles for everyone?</h3>
+      <p>No. You can set <code>role</code> only on important anchors like <code>patriarch</code>, <code>matriarch</code>, or <code>family-head</code> and leave it empty for everyone else.</p>
+      <p>Roles help choose cluster centers, members of the same family are arranged around those centers in circular clusters, marriage links are intentionally longer/weaker than parent links, and familyless records are treated as <code>Other</code> and pushed to outer rings.</p>
+
+      <h3>Legend</h3>
+      <div class="legend-item"><span class="dot core"></span> Core / bloodline</div>
+      <div class="legend-item"><span class="dot iyer"></span> Iyer family</div>
+      <div class="legend-item"><span class="dot reddy"></span> Reddy family</div>
+      <div class="legend-item"><span class="dot kapoor"></span> Kapoor family</div>
+      <div class="legend-item"><span class="dot other"></span> Extended / others</div>
+      <div class="legend-item"><span class="line marriage"></span> Marriage link</div>
+      <div class="legend-item"><span class="line parent"></span> Parent/family link</div>
+      <div class="legend-item"><span class="line extended"></span> Extended/sibling link</div>
+    </section>
+
+    <section class="right-panel card">
+      <h2>Live Data Editor</h2>
+      <textarea id="inputData"></textarea>
+      <div class="panel-actions">
+        <button id="loadBtn">Load Graph</button>
+        <button id="sampleBtn">Reset Sample</button>
+      </div>
+      <p class="helper">Tip: this editor uses the same object format as <code>data.js</code>.</p>
+    </section>
+
+    <section id="infoPanel" class="info-panel card hidden"></section>
+    <section id="statusPanel" class="status card"></section>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="graph.js"></script>
+</body>
+</html>
